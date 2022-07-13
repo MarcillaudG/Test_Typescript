@@ -55,8 +55,6 @@ export default class ManipulateUserController {
                 const allUsers = this.userModel.getAllUsers()
                 while (i < allUsers.length && !found){
                     let user = JSON.parse(JSON.stringify(allUsers[i]))
-                    console.log("TOKEN : " + user.token)
-                    console.log("Autre : " + token)
                     if (user.token === token){
                         found = true
                         username = user.name
