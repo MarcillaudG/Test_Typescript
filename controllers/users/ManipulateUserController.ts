@@ -32,7 +32,9 @@ export default class ManipulateUserController {
                     "name": name,
                     "token": token
                 }
-                reply.send(access)
+                //reply.send(access)
+                this.userModel.addTemporaryToken(name, token)
+                reply.redirect('/api/users/me?token='+token)
             }
         })
 
@@ -52,9 +54,9 @@ export default class ManipulateUserController {
                 let i = 0
                 let found = false
                 let username = "Unknown"
-                const allUsers = this.userModel.getAllUsers()
-                while (i < allUsers.length && !found){
-                    let user = JSON.parse(JSON.stringify(allUsers[i]))
+                const connections = this.userModel.getConnections()
+                while (i < connections.length && !found){
+                    let user = JSON.parse(JSON.stringify(connections[i]))
                     if (user.token === token){
                         found = true
                         username = user.name
