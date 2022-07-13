@@ -36,6 +36,40 @@ export default class ManipulateUserController {
             }
         })
 
+        this.router.route({
+            method: 'GET',
+            url: '/api/users/me',
+            schema: {
+                querystring: {
+                    name: { type: 'string' },
+                    password: {type: 'string'}
+                }
+            },
+            handler: async (request, reply) => {
+                let splitted = request.url.split("?")
+                const token = splitted[1].split("=")[1]
+                
+                let i = 0
+                let found = false
+                let username = "Unknown"
+                const allUsers = this.userModel.getAllUsers()
+                while (i < allUsers.length && !found){
+                    let user = JSON.parse(JSON.stringify(allUsers[i]))
+                    console.log("TOKEN : " + user.token)
+                    console.log("Autre : " + token)
+                    if (user.token === token){
+                        found = true
+                        username = user.name
+                    }
+                    i++;
+                }
+                const user:JSON = <JSON><unknown>{
+                    "username": username
+                }
+                reply.send(user)
+            }
+        })
+
 
         
     }
@@ -48,5 +82,9 @@ export default class ManipulateUserController {
     }
 
 
+    
 }
-
+interface User {
+    username: String;
+    token: String;
+}

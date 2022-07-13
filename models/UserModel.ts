@@ -1,3 +1,5 @@
+import S, { ObjectSchema } from 'fluent-json-schema'
+
 export default class UserModel {
 
     private users: JSON[]
