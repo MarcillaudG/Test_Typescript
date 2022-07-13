@@ -4,6 +4,7 @@ import HealtCheckController from "./controllers/HealtCheckController";
 import NotAnEasterEggController from "./controllers/NotAnEasterEggController";
 import RegisterUserController from "./controllers/users/RegisterUser";
 import UserModel from "./models/UserModel";
+import ManipulateUserController from "./controllers/users/ManipulateUserController";
 
 (async function main() {
     // Init Fastify router
@@ -17,6 +18,7 @@ import UserModel from "./models/UserModel";
     new HealtCheckController(http.router)
     new NotAnEasterEggController(http.router)
     new RegisterUserController(http.router, userModel)
+    new ManipulateUserController(http.router, userModel)
 
     // Fastify router start
     await http.start()
