@@ -45,9 +45,18 @@ export default class UserModel {
         this.connections.push(user)
     }
 
+    isUserInDatabase(name: string):boolean{
+        const user = this.db.findUserByName(name)
+        if(!user){
+            return false
+        }
+        return true
+    }
+
     getAllUsers(): JSON[]{
         return this.users
     }
+
 
     getConnections(): JSON[]{
         return this.connections

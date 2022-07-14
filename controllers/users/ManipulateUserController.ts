@@ -1,6 +1,6 @@
 import {FastifyInstance} from "fastify";
 import UserModel from "../../models/UserModel";
-import {generateString} from "../../utils/stringGenerators"
+import {generateString} from "../../utils/StringGenerators"
 import { UserErrors } from "../errors/UserErrors";
 
 export default class ManipulateUserController {
@@ -33,20 +33,21 @@ export default class ManipulateUserController {
                 let i = 0
                 const allusers = this.userModel.getAllUsers()
                 let found = false
-                while (i < allusers.length && !found){
+                // Deprecated, used when stored in memory
+                /*while (i < allusers.length && !found){
                     let user = JSON.parse(JSON.stringify(allusers[i]))
                     if (user.name === name){
                         found = true
                     }
                     i++;
-                }
+                }*/
+                found = this.userModel.isUserInDatabase(name)
                 
                 if (! found){
                     throw UserErrors.UserNotFound(name)
                 }
 
                 const token = generateString(Number(process.env.TOKEN_SIZE))
-                //const token = generateString(10)
                 const access:JSON = <JSON><unknown>{
                     "name": name,
                     "token": token

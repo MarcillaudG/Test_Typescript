@@ -1,7 +1,7 @@
 import {FastifyInstance} from "fastify";
 import { writeFileSync } from "fs";
 import UserModel from "../../models/UserModel";
-import {generateString} from "../../utils/stringGenerators"
+import {generateString} from "../../utils/StringGenerators"
 
 export default class RegisterUserController {
 
@@ -23,14 +23,14 @@ export default class RegisterUserController {
                 const name = splitted[1].split("=")[1]
                 const password = splitted[2].split("=")[1]
                 const token = generateString(Number(process.env.TOKEN_SIZE))
-                //const token = generateString(10)
                 const user:JSON = <JSON><unknown>{
                     "name": name,
                     "token": token
                 }
-                writeFileSync("./datafiles/users.txt", JSON.stringify(user), {
-                    flag: 'a'
-                })
+                // Store in File, deprecated
+                //writeFileSync("./datafiles/users.txt", JSON.stringify(user), {
+                //   flag: 'a'
+                //})
                 // Store in Memory
                 userModel.addTemporaryUser(name, token)
                 // Store in MongoDB
