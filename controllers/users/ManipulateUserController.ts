@@ -26,8 +26,8 @@ export default class ManipulateUserController {
             handler: async (request, reply) => {
                 let splitted = request.url.split("?")
                 const name = splitted[1].split("=")[1]
-                //const token = generateString(Number(process.env.TOKEN_SIZE))
-                const token = generateString(10)
+                const token = generateString(Number(process.env.TOKEN_SIZE))
+                //const token = generateString(10)
                 const access:JSON = <JSON><unknown>{
                     "name": name,
                     "token": token

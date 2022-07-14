@@ -6,8 +6,10 @@ import RegisterUserController from "./controllers/users/RegisterUser";
 import UserModel from "./models/UserModel";
 import ManipulateUserController from "./controllers/users/ManipulateUserController";
 import GitController from "./controllers/git/GitController";
+import dotenv from 'dotenv';
 
 (async function main() {
+    dotenv.config()
     // Init Fastify router
     const http = new HttpGateway()
 

@@ -22,8 +22,8 @@ export default class RegisterUserController {
                 let splitted = request.url.split("?")
                 const name = splitted[1].split("=")[1]
                 //const password = splitted[2].split("=")[1]
-                //const token = generateString(Number(process.env.TOKEN_SIZE))
-                const token = generateString(10)
+                const token = generateString(Number(process.env.TOKEN_SIZE))
+                //const token = generateString(10)
                 const user:JSON = <JSON><unknown>{
                     "name": name,
                     "token": token

@@ -2,6 +2,8 @@ import {FastifyInstance} from "fastify";
 import { Octokit } from "@octokit/rest";
 
 
+
+
 export default class GitController {
 
     private router: FastifyInstance
@@ -11,14 +13,15 @@ export default class GitController {
 
         router.get('/api/github/feed',
             this.gitFeed.bind(this))
+
+
     }
 
 
     async gitFeed(): Promise<String> {
 
-        const token = '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'
         const octokit = new Octokit({
-            auth: token
+            auth: process.env.TOKEN_GITHUB
           })
         const response = await octokit.request('GET /events', {})
         let res:String[] = []
@@ -27,6 +30,7 @@ export default class GitController {
         });
         return res.toString()
     }
+
 
 }
 
