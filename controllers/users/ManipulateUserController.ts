@@ -78,7 +78,8 @@ export default class ManipulateUserController {
                 let i = 0
                 let found = false
                 let username = "Unknown"
-                const connections = this.userModel.getConnections()
+                // Deprecated, used when stored in memory
+                /*const connections = this.userModel.getConnections()
                 while (i < connections.length && !found){
                     let user = JSON.parse(JSON.stringify(connections[i]))
                     if (user.token === token){
@@ -86,8 +87,9 @@ export default class ManipulateUserController {
                         username = user.name
                     }
                     i++;
-                }
-                if (!found){
+                }*/
+                username = await this.userModel.findUserWithToken(token)
+                if (!username){
                     throw UserErrors.WrongToken()
                 }
                 const user:JSON = <JSON><unknown>{

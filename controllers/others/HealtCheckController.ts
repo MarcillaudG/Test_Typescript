@@ -18,7 +18,7 @@ export default class HealtCheckController {
             "version": "1.0",
             "time": Date.now()
         }
-        return "json " + JSON.stringify(healthCheck);
+        return "json " + JSON.stringify(healthCheck)
     }
 
 }

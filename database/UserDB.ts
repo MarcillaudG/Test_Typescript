@@ -56,10 +56,17 @@ export class UserDB {
 
     async findUserByName(userName: String){
         const user = await DBUserModel.findOne({ name: userName }).exec()
-        console.log(user)
         return user
     }
 
+
+    async findUserWithToken(token: string) {
+        const user = await DBUserModel.findOne({ token: token }).exec()
+        if(!user){
+            throw UserDBErrors.TokenNotExisting()
+        }
+        return user.name
+    }
     
 }
 type DBUserModelType<T extends Document> = PaginateModel<T>

@@ -13,8 +13,16 @@ export class UserDBErrors {
       static UserNotExisting(): GenericError {
         return GenericError.of({
           statusCode: HttpStatus.UNAUTHORIZED,
-          message: 'This user doesn ot exist, update impossible try creation',
+          message: 'This user does not exist, update impossible try creation',
           code: 'USER_NOT_EXISTING'
+        })
+      }
+
+      static TokenNotExisting(): GenericError {
+        return GenericError.of({
+          statusCode: HttpStatus.UNAUTHORIZED,
+          message: 'This token does not exist',
+          code: 'TOKEN_NOT_EXISTING'
         })
       }
     

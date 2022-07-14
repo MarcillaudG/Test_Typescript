@@ -53,6 +53,11 @@ export default class UserModel {
         return true
     }
 
+    findUserWithToken(token: string) {
+        const username = this.db.findUserWithToken(token)
+        return username
+    }
+
     getAllUsers(): JSON[]{
         return this.users
     }

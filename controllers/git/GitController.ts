@@ -47,7 +47,7 @@ export default class GitController {
                 }
                 let api = 'https://api.github.com/users/' + user
 
-                //need to store the result in cach
+                // need to store the result in cach
                 const res = axios.get(api).then(function(response: { data: any; }) {
                     let github = response.data;
                     
@@ -57,6 +57,7 @@ export default class GitController {
                     reply.send(res)
                     return res
                 });
+                // Store the result in the map
                 this.updateUserAt.set(user, {data: res, accessTime: Date.now()})
             }
         })
