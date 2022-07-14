@@ -30,20 +30,6 @@ export default class GitController {
                 let api = 'https://api.github.com/users/' + user
                 axios.get(api).then(function(response: { data: any; }) {
                     let github = response.data;
-                    /*let res:String[] = []
-                    github.forEach((obj: { id: any; login: any; avatar_url: any; public_repos: any; public_gists: any; followers: any; following: any; }) => {
-                        res.push(` 
-                        "id": ${obj.id},
-                        "login": ${obj.login},
-                        "avatar": ${obj.avatar_url},
-                        "details":
-                            { 
-                            "public_repos": ${obj.public_repos}
-                            "public_gists": ${obj.public_gists}
-                            "followers": ${obj.followers}
-                            "following": ${obj.following}
-                        }`)
-                    })*/
                     
                     const res = `{ "id": ${github.id}, "login": ${github.login}, "avatar": ${github.avatar_url}, "details": {
                         "public_repos": ${github.public_repos} "public gists": ${github.public_gists} "followers": ${github.followers} "following"! ${github.following}
@@ -57,7 +43,7 @@ export default class GitController {
 
     async gitFeed(): Promise<String> {
 
-        let res = "Hello"
+        let res:String[] = []
         const response = await axios.get('https://api.github.com/events', {
             method: "GET",
             headers: {
@@ -65,7 +51,10 @@ export default class GitController {
             }
           });
         console.log(await response);
-        return JSON.stringify(response.data)
+        response.data.forEach((obj: { type: any; actor: { id: any; login: any; }; repo: { id: any; name: any; }; }) => {
+            res.push(` { "type": "${String(obj.type)}, "actor": { "id": ${String(obj.actor.id)}, "login": ${String(obj.actor.login)} }, "repo" : { "id": ${String(obj.repo.id)}, "name": ${String(obj.repo.name)}}}`)
+        });
+        return res.toString()
     }
 
 
