@@ -14,7 +14,43 @@ export default class GitController {
         router.get('/api/github/feed',
             this.gitFeed.bind(this))
 
-
+            this.router.route({
+                method: 'GET',
+                url: '/api/github/users/*',
+                schema: {
+                    querystring: {
+                        name: { type: 'string' },
+                        password: {type: 'string'}
+                    }
+                },
+                handler: async (request, reply) => {
+                    let splitted = request.url.split("/")
+                    const user = splitted[splitted.length-1]
+    
+                    const octokit = new Octokit({
+                        auth: process.env.TOKEN_GITHUB
+                      })
+                    const response = await octokit.request('GET /user/{username}', {
+                        username: "MarcillaudG"
+                    })
+                    /*
+                    let res:String[] = []
+                    response.data.forEach((obj: { id: any; login: any; avatar_url: any; public_repos: any; public_gists: any; followers: any; following: any; }) => {
+                        res.push(` 
+                        "id": ${obj.id},
+                        "login": ${obj.login},
+                        "avatar": ${obj.avatar_url},
+                        "details":
+                            { 
+                            "public_repos": ${obj.public_repos}
+                            "public_gists": ${obj.public_gists}
+                            "followers": ${obj.followers}
+                            "following": ${obj.following}
+                        }`)
+                    })*/
+                    reply.send("Hello")
+                }
+            })
     }
 
 
