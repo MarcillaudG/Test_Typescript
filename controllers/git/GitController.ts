@@ -3,13 +3,19 @@ const axios = require('axios').default;
 
 
 
-
+const ttl: number = 3_600_000 // 1 hour
 export default class GitController {
 
     private router: FastifyInstance
+    private dataEvents: string
+    private updateEventsAt: number
+
 
     constructor(router: FastifyInstance) {
         this.router = router
+        this.dataEvents = ""
+        this.updateEventsAt = 0
+
 
         router.get('/api/github/feed',
             this.gitFeed.bind(this))
@@ -43,6 +49,14 @@ export default class GitController {
 
     async gitFeed(): Promise<String> {
         // TODO Error token
+        
+        const isFresh = (Date.now() - this.updateEventsAt) < ttl
+
+        // If cached just return the old value
+        if (isFresh){
+            console.log("Cache Used")
+            return this.dataEvents
+        }
         let res:String[] = []
         const response = await axios.get('https://api.github.com/events', {
             method: "GET",
@@ -54,9 +68,10 @@ export default class GitController {
         response.data.forEach((obj: { type: any; actor: { id: any; login: any; }; repo: { id: any; name: any; }; }) => {
             res.push(` { "type": "${String(obj.type)}, "actor": { "id": ${String(obj.actor.id)}, "login": ${String(obj.actor.login)} }, "repo" : { "id": ${String(obj.repo.id)}, "name": ${String(obj.repo.name)}}}`)
         });
+        this.dataEvents = res.toString()
+        this.updateEventsAt = Date.now()
         return res.toString()
     }
-
 
 
 }

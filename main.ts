@@ -2,7 +2,7 @@ import HttpGateway from "./HttpGateway";
 import ExampleController from "./controllers/others/ExampleController";
 import HealtCheckController from "./controllers/others/HealtCheckController";
 import NotAnEasterEggController from "./controllers/others/NotAnEasterEggController";
-import RegisterUserController from "./controllers/users/RegisterUser";
+import RegisterUserController from "./controllers/users/RegisterUserController";
 import UserModel from "./models/UserModel";
 import ManipulateUserController from "./controllers/users/ManipulateUserController";
 import GitController from "./controllers/git/GitController";
