@@ -1,8 +1,8 @@
 
 
 function showHealthCheck(){
-    document.getElementById("message").innerHTML = "Voici le healthcheck"
-    fetch('http://localhost:3000/api/timemachine/logs/mcfly', {
+    document.getElementById("message").innerHTML = "Voici le healthcheck. La request est valide mais ne permet pas de recuperer la reponse."
+    fetch('http://localhost:3000/api/healthcheck', {
     // mode: 'no-cors',
     method: 'GET',
     headers: {
