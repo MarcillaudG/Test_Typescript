@@ -1,6 +1,7 @@
 import {FastifyInstance} from "fastify";
 import UserModel from "../../models/UserModel";
 import {generateString} from "../../utils/stringGenerators"
+import { UserErrors } from "../errors/UserErrors";
 
 export default class ManipulateUserController {
 
@@ -26,6 +27,22 @@ export default class ManipulateUserController {
             handler: async (request, reply) => {
                 let splitted = request.url.split("?")
                 const name = splitted[1].split("=")[1]
+
+                let i = 0
+                const allusers = this.userModel.getAllUsers()
+                let found = false
+                while (i < allusers.length && !found){
+                    let user = JSON.parse(JSON.stringify(allusers[i]))
+                    if (user.name === name){
+                        found = true
+                    }
+                    i++;
+                }
+                
+                if (! found){
+                    throw UserErrors.UserNotFound(name)
+                }
+
                 const token = generateString(Number(process.env.TOKEN_SIZE))
                 //const token = generateString(10)
                 const access:JSON = <JSON><unknown>{
@@ -62,6 +79,9 @@ export default class ManipulateUserController {
                         username = user.name
                     }
                     i++;
+                }
+                if (!found){
+                    throw UserErrors.WrongToken()
                 }
                 const user:JSON = <JSON><unknown>{
                     "username": username

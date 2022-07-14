@@ -1,3 +1,4 @@
+import { UserModelErrors } from "./errors/UserModelError"
 
 
 export default class UserModel {
@@ -15,6 +16,13 @@ export default class UserModel {
             "name": name,
             "token": token
         }
+        let exist = false
+        this.users.forEach(obj=> {
+            const user = JSON.parse(JSON.stringify(obj))
+            if (user.name === name) {
+                throw UserModelErrors.UserAlreadyRegistered()
+            }
+        });
         this.users.push(user)
     }
 
