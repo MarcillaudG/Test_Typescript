@@ -1,0 +1,36 @@
+body {
+    
+    height: 100vh;
+       }
+ p {
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+ }
+ div {
+    font-size: 1rem;
+    display: flex;
+    align-self: center;
+    justify-content: center;
+ }
+ 
+ button {
+     padding: 7px;
+     border: none;
+     border-radius: 4px;
+     cursor: pointer;
+ }
+ 
+ button.blue {
+     background-color: #3498db;
+ }
+ 
+ button.green {
+     background-color: #2ecc71;
+ }
+ 
+ button.orange {
+    background-color: orangered;
+ }
+ 
