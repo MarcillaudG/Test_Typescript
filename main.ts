@@ -5,6 +5,7 @@ import NotAnEasterEggController from "./controllers/NotAnEasterEggController";
 import RegisterUserController from "./controllers/users/RegisterUser";
 import UserModel from "./models/UserModel";
 import ManipulateUserController from "./controllers/users/ManipulateUserController";
+import GitController from "./controllers/git/GitController";
 
 (async function main() {
     // Init Fastify router
@@ -19,6 +20,7 @@ import ManipulateUserController from "./controllers/users/ManipulateUserControll
     new NotAnEasterEggController(http.router)
     new RegisterUserController(http.router, userModel)
     new ManipulateUserController(http.router, userModel)
+    new GitController(http.router)
 
     // Fastify router start
     await http.start()
