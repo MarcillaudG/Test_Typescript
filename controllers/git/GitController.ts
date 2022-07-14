@@ -1,5 +1,4 @@
 import {FastifyInstance} from "fastify";
-import { Octokit } from "@octokit/rest";
 const axios = require('axios').default;
 
 
@@ -29,10 +28,27 @@ export default class GitController {
                 const user = splitted[splitted.length-1]
 
                 let api = 'https://api.github.com/users/' + user
-                let github = ""
                 axios.get(api).then(function(response: { data: any; }) {
-                github = response.data;
-                reply.send(JSON.stringify(github))
+                    let github = response.data;
+                    /*let res:String[] = []
+                    github.forEach((obj: { id: any; login: any; avatar_url: any; public_repos: any; public_gists: any; followers: any; following: any; }) => {
+                        res.push(` 
+                        "id": ${obj.id},
+                        "login": ${obj.login},
+                        "avatar": ${obj.avatar_url},
+                        "details":
+                            { 
+                            "public_repos": ${obj.public_repos}
+                            "public_gists": ${obj.public_gists}
+                            "followers": ${obj.followers}
+                            "following": ${obj.following}
+                        }`)
+                    })*/
+                    
+                    const res = `{ "id": ${github.id}, "login": ${github.login}, "avatar": ${github.avatar_url}, "details": {
+                        "public_repos": ${github.public_repos} "public gists": ${github.public_gists} "followers": ${github.followers} "following"! ${github.following}
+                     } }                 `
+                    reply.send(res)
                 });
             }
         })
