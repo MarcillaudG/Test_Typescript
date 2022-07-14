@@ -14,7 +14,7 @@ export default class UserModel {
         this.db = dbconnection
     }
 
-    addTemporaryUser(name: String, token: String){
+    addTemporaryUser(name: String, token: String):void{
         const user:JSON = <JSON><unknown>{
             "name": name,
             "token": token
@@ -29,15 +29,15 @@ export default class UserModel {
         this.users.push(user)
     }
 
-    addPermanentUser(name: string, password: string, token:string){
+    addPermanentUser(name: string, password: string, token:string):void{
         this.db.createUser(name, password, token)
     }
 
-    updatePermanentUserToken(name: string, token: string){
+    updatePermanentUserToken(name: string, token: string):void{
         this.db.updateUserToken(name, token)
     }
 
-    addTemporaryToken(name: String, token: String){
+    addTemporaryToken(name: String, token: String):void{
         const user:JSON = <JSON><unknown>{
             "name": name,
             "token": token
@@ -53,7 +53,7 @@ export default class UserModel {
         return true
     }
 
-    findUserWithToken(token: string) {
+    findUserWithToken(token: string):Promise<string>{
         const username = this.db.findUserWithToken(token)
         return username
     }

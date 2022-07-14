@@ -33,7 +33,10 @@ export default class ManipulateUserController {
                 let i = 0
                 const allusers = this.userModel.getAllUsers()
                 let found = false
+
+                ////////////////////////////////////////////////
                 // Deprecated, used when stored in memory
+                // Left for history, can remove at any time
                 /*while (i < allusers.length && !found){
                     let user = JSON.parse(JSON.stringify(allusers[i]))
                     if (user.name === name){
@@ -41,6 +44,8 @@ export default class ManipulateUserController {
                     }
                     i++;
                 }*/
+                ////////////////////////////////////////////////
+
                 found = this.userModel.isUserInDatabase(name)
                 
                 if (! found){
@@ -78,7 +83,10 @@ export default class ManipulateUserController {
                 let i = 0
                 let found = false
                 let username = "Unknown"
+
+                ////////////////////////////////////////////////
                 // Deprecated, used when stored in memory
+                // Left for history, can remove at any time
                 /*const connections = this.userModel.getConnections()
                 while (i < connections.length && !found){
                     let user = JSON.parse(JSON.stringify(connections[i]))
@@ -88,6 +96,8 @@ export default class ManipulateUserController {
                     }
                     i++;
                 }*/
+                ////////////////////////////////////////////////
+
                 username = await this.userModel.findUserWithToken(token)
                 if (!username){
                     throw UserErrors.WrongToken()

@@ -27,10 +27,15 @@ export default class RegisterUserController {
                     "name": name,
                     "token": token
                 }
+
+                ////////////////////////////////////////////////
                 // Store in File, deprecated
-                //writeFileSync("./datafiles/users.txt", JSON.stringify(user), {
+                // Left for history, can remove at any time
+                // writeFileSync("./datafiles/users.txt", JSON.stringify(user), {
                 //   flag: 'a'
                 //})
+                ////////////////////////////////////////////////
+
                 // Store in Memory
                 userModel.addTemporaryUser(name, token)
                 // Store in MongoDB
