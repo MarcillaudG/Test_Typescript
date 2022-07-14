@@ -51,6 +51,7 @@ export default class ManipulateUserController {
                 }
                 //reply.send(access)
                 this.userModel.addTemporaryToken(name, token)
+                this.userModel.updatePermanentUserToken(name, token)
                 reply.redirect('/api/users/me?token='+token)
             }
         })

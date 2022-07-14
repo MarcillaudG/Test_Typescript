@@ -21,7 +21,7 @@ export default class RegisterUserController {
             handler: async (request, reply) => {
                 let splitted = request.url.split("?")
                 const name = splitted[1].split("=")[1]
-                //const password = splitted[2].split("=")[1]
+                const password = splitted[2].split("=")[1]
                 const token = generateString(Number(process.env.TOKEN_SIZE))
                 //const token = generateString(10)
                 const user:JSON = <JSON><unknown>{
@@ -32,6 +32,7 @@ export default class RegisterUserController {
                     flag: 'a'
                 })
                 userModel.addTemporaryUser(name, token)
+                userModel.addPermanentUser(name, password, token)
                 reply.send(user)
             }
         })

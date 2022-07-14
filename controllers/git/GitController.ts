@@ -42,7 +42,7 @@ export default class GitController {
 
 
     async gitFeed(): Promise<String> {
-
+        // TODO Error token
         let res:String[] = []
         const response = await axios.get('https://api.github.com/events', {
             method: "GET",

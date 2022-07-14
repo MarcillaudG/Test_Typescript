@@ -1,14 +1,17 @@
 import { UserModelErrors } from "./errors/UserModelError"
+import { UserDB } from "../database/UserDB"
 
 
 export default class UserModel {
 
     private users: JSON[]
     private connections: JSON[]
+    private db: UserDB
 
-    constructor(){
+    constructor(dbconnection: UserDB){
         this.users = []
         this.connections = []
+        this.db = dbconnection
     }
 
     addTemporaryUser(name: String, token: String){
@@ -24,6 +27,14 @@ export default class UserModel {
             }
         });
         this.users.push(user)
+    }
+
+    addPermanentUser(name: string, password: string, token:string){
+        this.db.createUser(name, password, token)
+    }
+
+    updatePermanentUserToken(name: string, token: string){
+        this.db.updateUserToken(name, token)
     }
 
     addTemporaryToken(name: String, token: String){
