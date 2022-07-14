@@ -1,13 +1,13 @@
 import HttpGateway from "./HttpGateway";
-import ExampleController from "./controllers/others/ExampleController";
-import HealtCheckController from "./controllers/others/HealtCheckController";
-import NotAnEasterEggController from "./controllers/others/NotAnEasterEggController";
-import RegisterUserController from "./controllers/users/RegisterUserController";
-import UserModel from "./models/UserModel";
-import ManipulateUserController from "./controllers/users/ManipulateUserController";
-import GitController from "./controllers/git/GitController";
+import ExampleController from "./backend/controllers/others/ExampleController";
+import HealtCheckController from "./backend/controllers/others/HealtCheckController";
+import NotAnEasterEggController from "./backend/controllers/others/NotAnEasterEggController";
+import RegisterUserController from "./backend/controllers/users/RegisterUserController";
+import UserModel from "./backend/models/UserModel";
+import ManipulateUserController from "./backend/controllers/users/ManipulateUserController";
+import GitController from "./backend/controllers/git/GitController";
 import dotenv from 'dotenv';
-import { UserDB } from "./database/UserDB";
+import { UserDB } from "./backend/database/UserDB";
 
 (async function main() {
     dotenv.config()
