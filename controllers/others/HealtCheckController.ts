@@ -12,13 +12,13 @@ export default class HealtCheckController {
     }
 
 
-    async healthCheck(): Promise<JSON> {
+    async healthCheck(): Promise<String> {
         const healthCheck:JSON = <JSON><unknown>{
             "name": "github-api",
             "version": "1.0",
             "time": Date.now()
         }
-        return healthCheck;
+        return "json " + JSON.stringify(healthCheck);
     }
 
 }

@@ -15,6 +15,8 @@ export default class ManipulateUserController {
             this.listUsers.bind(this))
 
 
+        // Used to log a user
+        // Immediately redirect to the page '/me'
         this.router.route({
             method: 'GET',
             url: '/api/users/login',
@@ -50,12 +52,15 @@ export default class ManipulateUserController {
                     "token": token
                 }
                 //reply.send(access)
+                // Store in Memory
                 this.userModel.addTemporaryToken(name, token)
+                // Store in MongoDB
                 this.userModel.updatePermanentUserToken(name, token)
                 reply.redirect('/api/users/me?token='+token)
             }
         })
 
+        // 
         this.router.route({
             method: 'GET',
             url: '/api/users/me',
@@ -87,7 +92,7 @@ export default class ManipulateUserController {
                 const user:JSON = <JSON><unknown>{
                     "username": username
                 }
-                reply.send(user)
+                reply.send(JSON.stringify(user))
             }
         })
 

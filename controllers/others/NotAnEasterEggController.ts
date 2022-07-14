@@ -12,7 +12,7 @@ export default class NotAnEasterEggController {
     }
 
 
-    async easterEgg(): Promise<JSON[]> {
+    async easterEgg(): Promise<String> {
         const jsonTab = [
             <JSON><unknown>{
             "name": "My mom is in love with me",
@@ -31,7 +31,12 @@ export default class NotAnEasterEggController {
         }
     
     ]
-        return jsonTab;
+        let res:String[] = []
+        jsonTab.forEach(obj =>{
+            res.push(JSON.stringify(obj))
+        }
+            )
+        return res.toString();
     }
 
 }
